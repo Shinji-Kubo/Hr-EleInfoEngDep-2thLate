@@ -1,28 +1,27 @@
 #include<stdio.h>
 #define MAX 10000
 
-main(void) {
-	int i, j, n;
-	int sumX = 0;
-	int sumY = 0;
+int arr[MAX];
 
-	for(n=2; n<MAX; n++) {
-		for (i=1; i<=n/2; i++) {
-			if (n % i == 0) {
-				sumX += i;
-			}
-		}
-		for (j=1; j<=sumX/2; j++) {
-			if (sumX % j == 0) {
-				sumY += j;
-			}
-			if ((sumY==n) && (sumX != sumY)) {
-				printf("(%d, %d\n)", n, sumX);
-			}
-		}
+main(void) {
+	int x, y, i;
+
+	for(i=0; i<MAX; i++) {
+		arr[i] = 0;
 	}
 
-	return 0;
+	for(x=1; x<MAX/2; x++) {
+		for(i=2; i*x < MAX; i++) {
+			arr[i*x] += x;
+		}
+	}
+	
+	for (x=1; x<MAX; x++) {
+		y = arr[x];
+		if (y < MAX && x < y && arr[y] == x) {
+			printf("(%d, %d)\n", x, y);
+		}
+	}
 
 	return 0;
 }
