@@ -1,0 +1,2 @@
+1. set array of operation permuration
+
