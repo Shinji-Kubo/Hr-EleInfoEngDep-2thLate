@@ -14,31 +14,36 @@ int top = 0;
 int tmp1;
 int tmp2;
 int cnt = 0;
-int notCnt = 0;
+int num = 0;
 char opePmt[4][256];
+int temp[6];
 int buf = 1; // 0->true 1->false
 int cannot = 0;
-int notCal[6][100];
 
 int compare (const void * a, const void * b);
 void allLexicographicRecur (char *str, char* data, int last, int index);
 void allLexicographic(char *str);
 void combinationNum(int arr[], int data[], int start, int end, int index, int r);
 int permutation(int *arr, int len);
-void calculation(char ope[], int num[], int as);
+void calculation(char ope[], int num[]);
 int poland(Data *data);
 void push(int num);
 int pop();
 
-int main(void) {
-	int i, j, k = 0;
+main() {
+
+    // operation permutation repeatation
+    int i, j;
     char ope[] = "+-*/";
-    int arr[30];
-    int r = 5;
-    int data[r];
-    int n = sizeof(arr) / sizeof(arr[0]);
 
     allLexicographic(ope);
+
+    // number combination
+    int k = 0;
+    int arr[30];
+    int r = 6;
+    int data[r];
+    int n = sizeof(arr) / sizeof(arr[0]);
 
     for (i=0; i<10; i++) {
         for (j=0; j<3; j++) {
@@ -49,98 +54,17 @@ int main(void) {
 
     combinationNum(arr, data, 0, n-1, 0, r);
 
-    for (i=0; i<notCnt; i++) {
-        for (j=0; j<6; j++) {
-            printf("%d ", notCal[j][i]);
-        }
-        printf("\n");
-    }
+    printf("%d\n", cannot);
 
-	return 0;
-}
-
-int permutation(int *arr, int len) {
-    int left = len - 2;
-    while (left >= 0 && arr[left] >= arr[left+1]) {
-        left--;
-    }
-    if (left < 0) {
-        return 0;
-    }
-
-    int right = len - 1;
-    while (arr[left] >= arr[right]) {
-        right--;
-    }
-
-    int t = arr[left];
-    arr[left] = arr[right];
-    arr[right] = t;
-
-    left++;
-    right = len - 1;
-    while (left < right) {
-        t = arr[left];
-        arr[left] = arr[right];
-        arr[right] = t;
-        left++;
-        right--;
-    }
-    return 1;
-}
-
-void combinationNum(int arr[], int data[], int start, int end, int index, int r) {
-    int i, j, k, temp[6];
-    char ope[4];
-
-    if (index == r) {
-
-        for (i=0; i<6; i++) {
-            temp[i] = data[i];
-        }
-
-        for (k=1; k<11; k++) {
-            do {
-                for (i=0; i<256; i++) {
-                    for (j=0; j<4; j++) {
-                        ope[j] = opePmt[j][i];
-                    }
-                    calculation(ope, temp, k);
-                    if (buf == 0) {
-                        break;
-                    }
-                }
-                if (buf == 0) {
-                    break;
-                }
-            } while (permutation(temp, r));
-            if (buf == 0) {
-                buf = 1;
-            } else {
-                for (i=0; i<5; i++) {
-                    notCal[i][notCnt] = temp[i];
-                    notCal[5][notCnt] = k;
-                }
-                notCnt++;
-                cannot++;
-            }
-        }
-
-        return;
-    }
-
-    for (i=start; i<=end && end-i+1 >= r-index; i++) {
-        data[index] = arr[i];
-        combinationNum(arr, data, i+1, end, index+1, r);
-    }
+    return 0;
 }
 
 void allLexicographicRecur (char *str, char* data, int last, int index) {
     int i, j, len = strlen(str);
-
+ 
     for ( i=0; i<len; i++ ){
         data[index] = str[i];
-
+ 
         if (index == last) {
             for (j=0; j<4; j++) {
                 opePmt[j][cnt] = *(data+j);
@@ -170,7 +94,95 @@ int compare (const void * a, const void * b) {
     return ( *(char *)a - *(char *)b );
 }
 
-void calculation(char ope[], int num[], int as) {
+void combinationNum(int arr[], int data[], int start, int end, int index, int r) {
+    int i, j, k;
+    int judge = 1;
+    char ope[4];
+
+    if (index == r) {
+        for (i=0; i<r; i++) {
+            if (data[i] != temp[i]) {
+                judge = 0;
+                break;
+            }
+        }
+        if (judge == 0) {
+            printf("\n----------------------\n");
+            for (i=0; i<r; i++) {
+                temp[i] = data[i];
+                printf("%d ", data[i]);
+            }
+            printf("\n----------------------\n");
+
+            // number permutation
+            do {
+                // operation process
+
+                for (i=0; i<r; i++) {
+                    printf("%d ", data[i]);
+                }
+                printf("\n");
+                for (i=0; i<256; i++) {
+                    for (j=0; j<4; j++) {
+                        ope[j] = opePmt[j][i];
+                    }
+                    calculation(ope, data);
+                    if (buf == 0) {
+                        break;
+                    }
+                }
+                if (buf == 0) {
+                    break;
+                }
+            } while (permutation(data, r));
+            if (buf == 0) {
+                buf = 1;
+            } else {
+                cannot++;
+            }
+            judge = 1;
+            num++;
+        }
+        return;
+    }
+
+    for (i=start; i<=end && end-i+1 >= r-index; i++) {
+        data[index] = arr[i];
+        combinationNum(arr, data, i+1, end, index+1, r);
+    }
+}
+
+int permutation(int *arr, int len) {
+    int left = len - 2;
+    while (left >= 0 && arr[left] >= arr[left+1]) {
+        left--;
+    }
+    if (left < 0) {
+        return 0;
+    }
+
+    int right = len - 1;
+    while (arr[left] >= arr[right]) {
+        right--;
+    }
+    
+    int t = arr[left];
+    arr[left] = arr[right];
+    arr[right] = t;
+
+    left++;
+    right = len - 1;
+    while (left < right) {
+        t = arr[left];
+        arr[left] = arr[right];
+        arr[right] = t;
+        left++;
+        right--;
+    }
+    return 1;
+}
+
+void calculation(char ope[], int num[]) {
     int i, j, k = 0;
     Data data[9];
 
@@ -195,12 +207,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.2
     top = 0;
     data[0].num = num[0];
@@ -222,12 +236,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.3
     top = 0;
     data[0].num = num[0];
@@ -249,12 +265,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.4
     top = 0;
     data[0].num = num[0];
@@ -276,12 +294,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.5
     top = 0;
     data[0].num = num[0];
@@ -303,12 +323,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.6
     top = 0;
     data[0].num = num[0];
@@ -330,12 +352,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.7
     top = 0;
     data[0].num = num[0];
@@ -357,12 +381,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.8
     top = 0;
     data[0].num = num[0];
@@ -384,12 +410,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.9
     top = 0;
     data[0].num = num[0];
@@ -411,12 +439,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.10
     top = 0;
     data[0].num = num[0];
@@ -438,12 +468,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.11
     top = 0;
     data[0].num = num[0];
@@ -465,12 +497,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.12
     top = 0;
     data[0].num = num[0];
@@ -492,12 +526,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.13
     top = 0;
     data[0].num = num[0];
@@ -519,12 +555,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
     // No.14
     top = 0;
     data[0].num = num[0];
@@ -546,12 +584,14 @@ void calculation(char ope[], int num[], int as) {
     data[8].ope = ope[3];
     data[8].judge = 1;
     if (poland(data) != 1) {
-        if (stack[0] == as) {
+        if (stack[0] == num[5]) {
+            for (i=0; i<4; i++) {
+                printf("%c\n", ope[i]);
+            }
             buf = 0;
             return;
         }
     }
-    
 }
 
 int poland(Data *data) {
@@ -567,10 +607,13 @@ int poland(Data *data) {
                 push(tmp2+tmp1);
             } else if (data->ope == '-') {
                 push(tmp2-tmp1);
+                if (tmp2 - tmp1 == 0) {
+                    return 1;
+                }
             } else if (data->ope == '*') {
                 push(tmp2*tmp1);
             } else {
-                if (tmp1 == 0) {
+                if (tmp1 == 0 && tmp2 % tmp1 != 0) {
                     return 1;
                 }
                 push(tmp2/tmp1);

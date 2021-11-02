@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 #include<string.h>
 #define STACKSIZE 5
 
@@ -13,17 +14,13 @@ int stack[STACKSIZE];
 int top = 0;
 int tmp1;
 int tmp2;
-int cnt = 0;
-int notCnt = 0;
 char opePmt[4][256];
-int buf = 1; // 0->true 1->false
-int cannot = 0;
-int notCal[6][100];
+int cnt = 0;
+int com = 0;
 
 int compare (const void * a, const void * b);
 void allLexicographicRecur (char *str, char* data, int last, int index);
 void allLexicographic(char *str);
-void combinationNum(int arr[], int data[], int start, int end, int index, int r);
 int permutation(int *arr, int len);
 void calculation(char ope[], int num[], int as);
 int poland(Data *data);
@@ -31,30 +28,35 @@ void push(int num);
 int pop();
 
 int main(void) {
-	int i, j, k = 0;
+	int i, j;
+	int num[6];
+	int numCnt[10];
     char ope[] = "+-*/";
-    int arr[30];
-    int r = 5;
-    int data[r];
-    int n = sizeof(arr) / sizeof(arr[0]);
 
     allLexicographic(ope);
 
-    for (i=0; i<10; i++) {
-        for (j=0; j<3; j++) {
-            arr[k] = i + 1;
-            k++;
-        }
-    }
+	srand((unsigned int)time(NULL));
 
-    combinationNum(arr, data, 0, n-1, 0, r);
+	for (i=0; i<6; i++) {
+		do {
+			num[i] = rand() % 10 + 1;
+			numCnt[num[i] - 1]++;
+		} while (numCnt[num[i]-1] > 3);
 
-    for (i=0; i<notCnt; i++) {
-        for (j=0; j<6; j++) {
-            printf("%d ", notCal[j][i]);
+	}
+
+    do {
+        for (i=0; i<256; i++) {
+            for (j=0; j<4; j++) {
+                ope[j] = opePmt[j][i];
+            }
+            calculation(ope, num, num[5]);
         }
-        printf("\n");
-    }
+    } while (permutation(num, 5));
+
+    printf("a=%d\nb=%d\nc=%d\nd=%d\ne=%d\nf=%d\n", num[0], num[1], num[2], num[3], num[4], num[5]);
+
+    printf("computable : %d\n", com);
 
 	return 0;
 }
@@ -87,52 +89,6 @@ int permutation(int *arr, int len) {
         right--;
     }
     return 1;
-}
-
-void combinationNum(int arr[], int data[], int start, int end, int index, int r) {
-    int i, j, k, temp[6];
-    char ope[4];
-
-    if (index == r) {
-
-        for (i=0; i<6; i++) {
-            temp[i] = data[i];
-        }
-
-        for (k=1; k<11; k++) {
-            do {
-                for (i=0; i<256; i++) {
-                    for (j=0; j<4; j++) {
-                        ope[j] = opePmt[j][i];
-                    }
-                    calculation(ope, temp, k);
-                    if (buf == 0) {
-                        break;
-                    }
-                }
-                if (buf == 0) {
-                    break;
-                }
-            } while (permutation(temp, r));
-            if (buf == 0) {
-                buf = 1;
-            } else {
-                for (i=0; i<5; i++) {
-                    notCal[i][notCnt] = temp[i];
-                    notCal[5][notCnt] = k;
-                }
-                notCnt++;
-                cannot++;
-            }
-        }
-
-        return;
-    }
-
-    for (i=start; i<=end && end-i+1 >= r-index; i++) {
-        data[index] = arr[i];
-        combinationNum(arr, data, i+1, end, index+1, r);
-    }
 }
 
 void allLexicographicRecur (char *str, char* data, int last, int index) {
@@ -196,7 +152,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -223,7 +179,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -250,7 +206,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -277,7 +233,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -304,7 +260,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -331,7 +287,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -358,7 +314,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -385,7 +341,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -412,7 +368,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -439,7 +395,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -466,7 +422,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -493,7 +449,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -520,7 +476,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
@@ -547,7 +503,7 @@ void calculation(char ope[], int num[], int as) {
     data[8].judge = 1;
     if (poland(data) != 1) {
         if (stack[0] == as) {
-            buf = 0;
+            com++;
             return;
         }
     }
