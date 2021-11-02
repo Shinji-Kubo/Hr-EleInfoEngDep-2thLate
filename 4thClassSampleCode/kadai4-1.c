@@ -13,6 +13,7 @@ void rotation(int x1, int y1, int degree);
 void resize(int x1, int y1, double sx, double sy);
 void skewx(int x1, int y1, int degree);
 void skewy(int x1, int y1, int degree);
+void movement(int x1, int y1, int tx, int ty);
 
 int main(void) {
 	int x, y;
@@ -78,6 +79,15 @@ int main(void) {
 	}
 	printf("\n\n");
 
+	printf("movement\n------------------------------------------\n");
+	for (i=0; i<5; i++) {
+		movement(pos[i].x, pos[i].y, 3, 3);
+		x = x2;
+		y = y2;
+		printf("%d %d\n", x, y);
+	}
+	printf("\n\n");
+
 	return 0;
 }
 
@@ -103,4 +113,10 @@ void skewy(int x1, int y1, int degree) {
 
 	x2 = x1 + 0.5;
 	y2 = tan(degree * PI / 180.0) * x1 + y1 + 0.5;
+}
+
+void movement(int x1, int y1, int tx, int ty) {
+
+	x2 = x1 + tx + 0.5;
+	y2 = y1 + ty + 0.5;
 }
