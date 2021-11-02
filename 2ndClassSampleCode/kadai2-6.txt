@@ -1,0 +1,5 @@
+regDev : 0.163987
+regDev : 0.064362
+regDev : 0.019577
+regDev : 0.006398
+regDev : 0.001984

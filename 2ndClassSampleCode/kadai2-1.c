@@ -1,6 +1,7 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<math.h>
-#define N 32
+#define N 10
 
 int genRand(int A, int B, int M, int X);
 
@@ -9,7 +10,7 @@ main(void) {
 
 	static int A = 13;
 	static int B = 2 * N + 1;
-	static int M = pow(2, N);
+	int M = pow(2, N);
 	int X = 0;
 	double rand;
 	double firTerm;
@@ -18,8 +19,6 @@ main(void) {
 	for (i=0; i<=M; i++) {
 		X = genRand(A, B, M, X);
 		rand = 1.0 * X / M;
-		printf("%d : ", i);
-		printf("%f\n", rand);
 
 		if (i == 0) {
 			firTerm = rand;
