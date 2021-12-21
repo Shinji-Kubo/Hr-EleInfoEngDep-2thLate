@@ -18,8 +18,8 @@ int main(void) {
     FILE *fp;
     POS origin[5];
     POS mv[5];
-    char originFile[] = "original.dat";
-    char mvFile[] = "move.dat";
+    char originFile[] = "move.dat";
+    char mvFile[] = "original.dat";
 
     fp = fopen(originFile, "r");
     if (fp == NULL) {
