@@ -44,7 +44,7 @@ int main(void) {
 
         // File write
         for (j=0; j<NY; j++) {
-            fwrite(img[j], NX, sizeof(float), fp);
+            fwrite(img[j], NX, sizeof(char), fp);
         }
 
     }
