@@ -11,8 +11,9 @@ int main(void)
     FILE *fp;
     char fn[] = "kadai2Img";
     char img[NY][NX];
+    float size;
 
-    r = 32;
+    size = 0.25;
 
     for (i = 0; i < NY; i++)
     {
@@ -26,8 +27,8 @@ int main(void)
 	{
 		for (j = 0; j < NX; j++)
 		{
-            left  = pow(j-64, 2) / pow(56, 2);
-            right = pow(i-64, 2) / pow(40, 2);
+            left  = pow(j-64, 2) / pow(28/size, 2);
+            right = pow(i-64, 2) / pow(20/size, 2);
             if (left + right <= 1.0) {
                 img[i][j] = '255';
             }
