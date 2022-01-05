@@ -29,7 +29,31 @@ int main(void)
             left  = pow(j-64, 2) / pow(56, 2);
             right = pow(i-64, 2) / pow(40, 2);
             if (left + right <= 1.0) {
-                img[i][j] = '120';
+                img[i][j] = '255';
+            }
+		}
+	}
+
+    for (i = 0; i < NY; i++)
+	{
+		for (j = 0; j < NX; j++)
+		{
+            left  = pow(j-40, 2) / pow(20, 2);
+            right = pow(i-64, 2) / pow(24, 2);
+            if (left + right <= 1.0) {
+                img[i][j] = '0';
+            }
+		}
+	}
+
+    for (i = 0; i < NY; i++)
+	{
+		for (j = 0; j < NX; j++)
+		{
+            left  = pow(j-88, 2) / pow(20, 2);
+            right = pow(i-64, 2) / pow(24, 2);
+            if (left + right <= 1.0) {
+                img[i][j] = '0';
             }
 		}
 	}
