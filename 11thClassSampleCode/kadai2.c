@@ -10,7 +10,7 @@ int main(void)
     double left, right;
     FILE *fp;
     char fn[] = "kadai2Img";
-    char img[NY][NX];
+    unsigned char img[NY][NX];
 
     for (i = 0; i < NY; i++)
     {
@@ -41,7 +41,7 @@ int main(void)
 
 	for (i = 0; i < NY; i++)
 	{
-		fwrite(img[i], NX, sizeof(char), fp);
+		fwrite(img[i], NX, sizeof(unsigned char), fp);
 	}
 
 	fclose(fp);
