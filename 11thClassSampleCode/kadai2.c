@@ -12,6 +12,7 @@ int main(void) {
     char fn[] = "kadai2Img";
     int img[NY][NX];
     float size;
+    float a, b;
 
     size = 0.25;
 
@@ -33,8 +34,10 @@ int main(void) {
         if (i >= 0 && i < 30/size) {
             for (j=0; j<NY; j++) {
                 for (k=0; k<NX; k++) {
-                    left = pow(k-64, 2) / pow(28/size, 2);
-                    right = pow(j-64, 2) / pow(20/size, 2);
+                    a = 28 / size;
+                    b = 20 / size;
+                    left = pow(k-64, 2) / pow(a, 2);
+                    right = pow(j-64, 2) / pow(b, 2);
                     if (left + right <= 1.0) {
                         img[j][k] = 120;
                     }
