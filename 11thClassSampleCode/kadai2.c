@@ -45,7 +45,7 @@ int main(void) {
         if (0 <= k && 30/size > k) {
             for (i=0; i<NY; i++) {
                 for (j=0; j<NX; j++) {
-                    left = pow(j-58, 2) / pow((10/size) / 2, 2);
+                    left = pow(j-40, 2) / pow((10/size) / 2, 2);
                     right = pow(i-64, 2) / pow((12/size) / 2, 2);
                     if (left + right <= 1.0) {
                         img[i][j] = 0;
@@ -58,7 +58,7 @@ int main(void) {
         if (0 <= k && 30/size > k) {
             for (i=0; i<NY; i++) {
                 for (j=0; j<NX; j++) {
-                    left = pow(j-70, 2) / pow((10/size) / 2, 2);
+                    left = pow(j-88, 2) / pow((10/size) / 2, 2);
                     right = pow(i-64, 2) / pow((12/size) / 2, 2);
                     if (left + right <= 1.0) {
                         img[i][j] = 0;
