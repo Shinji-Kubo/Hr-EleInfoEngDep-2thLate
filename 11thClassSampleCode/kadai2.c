@@ -32,7 +32,7 @@ int main(void) {
         for (i=0; i<NY; i++) {
             for (j=0; j<NX; j++) {
                 left = pow(j-64, 2) / pow((28/size) / 2, 2);
-                right = pow(j-64, 2) / pow((20/size) / 2, 2);
+                right = pow(i-64, 2) / pow((20/size) / 2, 2);
                 if (left + right <= 1.0) {
                     img[i][j] = 120;
                 }
