@@ -6,33 +6,19 @@
 
 int main(void)
 {
-    int r, i, j;
+    int i, j;
     double left, right;
     FILE *fp;
     char fn[] = "kadai2Img";
-    int img[NY][NX];
-
-    r = 32;
+    float img[NY][NX];
 
     for (i = 0; i < NY; i++)
     {
         for (j = 0; j < NX; j++)
         {
-            img[i][j] = 0;
+            img[i][j] = 0.0;
         }
     }
-
-    for (i = 0; i < NY; i++)
-	{
-		for (j = 0; j < NX; j++)
-		{
-            left  = pow(j-64, 2) / pow(56, 2);
-            right = pow(i-64, 2) / pow(40, 2);
-            if (left + right <= 1.0) {
-                img[i][j] = 120;
-            }
-		}
-	}
 
     fp = fopen(fn, "wb");
 	if (fp == NULL)
@@ -41,9 +27,21 @@ int main(void)
 		exit(1);
 	}
 
+    for (i = 0; i < NY; i++)
+	{
+		for (j = 0; j < NX; j++)
+		{
+            left  = pow(j-64, 2) / pow(56, 2);
+            right = pow(i-64, 2) / pow(40, 2);
+            if (left + right <= 1.0) {
+                img[i][j] = 120.0;
+            }
+		}
+	}
+
 	for (i = 0; i < NY; i++)
 	{
-		fwrite(img[i], NX, sizeof(int), fp);
+		fwrite(img[i], NX, sizeof(float), fp);
 	}
 
 	fclose(fp);
