@@ -67,6 +67,44 @@ int main(void) {
             }
         }
 
+        // Liver
+        if (52 <= k && (6/size)+52 > k) {
+            for (i=0; i<NY; i++) {
+                for (j=0; j<NX; j++) {
+                    left = pow(j-64, 2) / pow((20/size) / 2, 2);
+                    right = pow(i-64, 2) / pow((12/size) / 2, 2);
+                    if (left + right <= 1.0) {
+                        img[i][j] = 120;
+                    }
+                }
+            }
+        }
+
+        // Spine
+        if (0 <= k && (32/size) > k) {
+            for (i=0; i<NY; i++) {
+                for (j=0; j<NX; j++) {
+                    left = pow(j-64, 2) / pow((4/size) / 2, 2);
+                    right = pow(i-38, 2) / pow((4/size) / 2, 2);
+                    if (left + right <= 1.0) {
+                        img[i][j] = 240;
+                    }
+                }
+            }
+        }
+
+        if (20 <= k && (10/size)+20 > k) {
+            for (i=0; i<NY; i++) {
+                for (j=0; j<NX; j++) {
+                    left = pow(j-64, 2) / pow((8.5/size) / 2, 2);
+                    right = pow(i-64, 2) / pow((8.5/size) / 2, 2);
+                    if (left + right <= 1.0) {
+                        img[i][j] = 120;
+                    }
+                }
+            }
+        }
+
         // File write
         for (i=0; i<NY; i++) {
             fwrite(img[i], NX, sizeof(char), fp);
