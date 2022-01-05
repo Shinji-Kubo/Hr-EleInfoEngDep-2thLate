@@ -11,7 +11,7 @@ int main(void)
     FILE *fp;
     char fn[] = "kadai2Img";
     char img[NY][NX];
-    float size;
+    double size;
 
     size = 0.25;
 
