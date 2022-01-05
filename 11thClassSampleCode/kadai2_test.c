@@ -38,6 +38,8 @@ int main(void) {
             right = pow(j-64, 2) / pow(b, 2);
             if (left + right <= 1.0) {
                 img[j][k] = '120';
+
+                printf("%d %d\n", k, j);
             }
         }
     }
