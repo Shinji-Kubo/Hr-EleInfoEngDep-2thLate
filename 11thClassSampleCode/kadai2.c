@@ -27,8 +27,8 @@ int main(void)
 	{
 		for (j = 0; j < NX; j++)
 		{
-            left  = ((j-64) * (j-64)) / ((28/size) * (28/size));
-            right = ((i-64) * (i-64)) / ((20/size) * (20/size));
+            left = pow(j-64, 2) / pow((double)28/ size, 2);
+            right = pow(i-64, 2) / pow((double)20/ size, 2);
             if (left + right <= 1.0) {
                 img[i][j] = '255';
             }
