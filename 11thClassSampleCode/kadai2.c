@@ -9,7 +9,7 @@ int main(void) {
     int i, j, k;
     FILE *fp;
     char fn[] = "kadai2Img";
-    char img[NY][NX];
+    unsigned char img[NY][NX];
     double left, right, size;
 
     size = 0.25;
@@ -68,7 +68,7 @@ int main(void) {
         }
 
         // Liver
-        if (52 <= k && (6/size)+52 > k) {
+        if (126 <= k && (6/size)+126 > k) {
             for (i=0; i<NY; i++) {
                 for (j=0; j<NX; j++) {
                     left = pow(j-64, 2) / pow((20/size) / 2, 2);
@@ -93,7 +93,8 @@ int main(void) {
             }
         }
 
-        if (20 <= k && (10/size)+20 > k) {
+        // Heart
+        if (84 <= k && (10/size)+84 > k) {
             for (i=0; i<NY; i++) {
                 for (j=0; j<NX; j++) {
                     left = pow(j-64, 2) / pow((8.5/size) / 2, 2);
@@ -107,7 +108,7 @@ int main(void) {
 
         // File write
         for (i=0; i<NY; i++) {
-            fwrite(img[i], NX, sizeof(char), fp);
+            fwrite(img[i], NX, sizeof(unsigned char), fp);
         }
     }
 
