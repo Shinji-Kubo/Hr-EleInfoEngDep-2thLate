@@ -7,7 +7,7 @@
 int main(void)
 {
     int r, i, j;
-    double left, right;
+    double left, right, a, b;
     FILE *fp;
     char fn[] = "kadai2Img";
     char img[NY][NX];
@@ -27,11 +27,13 @@ int main(void)
 	{
 		for (j = 0; j < NX; j++)
 		{
-            left = pow(j-64, 2) / pow((double)28/ size, 2);
-            right = pow(i-64, 2) / pow((double)20/ size, 2);
-            if (left + right <= 1.0) {
-                img[i][j] = '255';
-            }
+        a = 28 / size;
+        b = 20 / size;
+        left = pow(j-64, 2) / pow(a, 2);
+        right = pow(i-64, 2) / pow(b, 2);
+        if (left + right <= 1.0) {
+            img[i][j] = '255';
+        }
 		}
 	}
 
