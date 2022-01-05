@@ -10,7 +10,7 @@ int main(void) {
     double left, right;
     FILE *fp;
     char fn[] = "kadai2Img";
-    char img[NY][NX];
+    int img[NY][NX];
     float size;
 
     size = 0.25;
@@ -25,7 +25,7 @@ int main(void) {
         // Initialize
         for (j=0; j<NY; j++) {
             for (k=0; k<NX; k++) {
-                img[j][k] = '0';
+                img[j][k] = 0;
             }
         }
 
@@ -36,7 +36,7 @@ int main(void) {
                     left = pow(k-64, 2) / pow(28/size, 2);
                     right = pow(j-64, 2) / pow(20/size, 2);
                     if (left + right <= 1.0) {
-                        img[j][k] = '120';
+                        img[j][k] = 120;
                     }
                 }
             }
@@ -44,7 +44,7 @@ int main(void) {
 
         // File write
         for (j=0; j<NY; j++) {
-            fwrite(img[j], NX, sizeof(char), fp);
+            fwrite(img[j], NX, sizeof(int), fp);
         }
 
     }
