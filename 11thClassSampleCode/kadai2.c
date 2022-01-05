@@ -68,7 +68,7 @@ int main(void) {
         }
 
         // Liver
-        if (126 <= k && (6/size)+126 > k) {
+        if (12 <= k && (6/size)+12 > k) {
             for (i=0; i<NY; i++) {
                 for (j=0; j<NX; j++) {
                     left = pow(j-64, 2) / pow((20/size) / 2, 2);
@@ -94,7 +94,7 @@ int main(void) {
         }
 
         // Heart
-        if (84 <= k && (10/size)+84 > k) {
+        if (44 <= k && (10/size)+44 > k) {
             for (i=0; i<NY; i++) {
                 for (j=0; j<NX; j++) {
                     left = pow(j-64, 2) / pow((8.5/size) / 2, 2);
