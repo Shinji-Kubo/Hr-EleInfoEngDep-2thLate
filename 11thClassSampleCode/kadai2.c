@@ -7,10 +7,12 @@
 int main(void)
 {
     int r, i, j;
-    double left, right, a, b;
+    double left, right;
     FILE *fp;
     char fn[] = "kadai2Img";
     char img[NY][NX];
+
+    r = 32;
 
     for (i = 0; i < NY; i++)
     {
@@ -24,11 +26,11 @@ int main(void)
 	{
 		for (j = 0; j < NX; j++)
 		{
-        left = pow(j-64, 2) / pow(112, 2);
-        right = pow(i-64, 2) / pow(80, 2);
-        if (left + right <= 1.0) {
-            img[i][j] = '255';
-        }
+            left  = pow(j-64, 2) / pow(112, 2);
+            right = pow(i-64, 2) / pow(80, 2);
+            if (left + right <= 1.0) {
+                img[i][j] = '255';
+            }
 		}
 	}
 
