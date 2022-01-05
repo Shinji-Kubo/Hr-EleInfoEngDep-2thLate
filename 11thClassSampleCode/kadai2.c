@@ -9,7 +9,7 @@ int main(void)
     int r, i, j;
     double left, right;
     FILE *fp;
-    char fn[] = "twoEllipseImg";
+    char fn[] = "kadai2Img";
     char img[NY][NX];
 
     r = 32;
