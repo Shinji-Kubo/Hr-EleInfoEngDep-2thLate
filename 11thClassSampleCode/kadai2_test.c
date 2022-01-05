@@ -30,16 +30,14 @@ int main(void) {
     }
 
     // Trunk
-    if (i >= 0 && i < 30/size) {
-        for (j=0; j<NY; j++) {
-            for (k=0; k<NX; k++) {
-                a = 28 / size;
-                b = 20 / size;
-                left = pow(k-64, 2) / pow(a, 2);
-                right = pow(j-64, 2) / pow(b, 2);
-                if (left + right <= 1.0) {
-                    img[j][k] = '120';
-                }
+    for (j=0; j<NY; j++) {
+        for (k=0; k<NX; k++) {
+            a = 28 / size;
+            b = 20 / size;
+            left = pow(k-64, 2) / pow(a, 2);
+            right = pow(j-64, 2) / pow(b, 2);
+            if (left + right <= 1.0) {
+                img[j][k] = '120';
             }
         }
     }
