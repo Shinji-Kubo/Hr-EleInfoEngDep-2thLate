@@ -9,7 +9,7 @@ int main(void)
     int r, i, j, left, right;
     FILE *fp;
     char fn[] = "circleImg";
-    float img[NY][NX];
+    char img[NY][NX];
 		float att_tis_pix;
 		float att_fac;
 		float den;

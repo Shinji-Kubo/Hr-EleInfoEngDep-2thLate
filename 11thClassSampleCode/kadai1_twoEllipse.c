@@ -10,7 +10,7 @@ int main(void)
     double left, right;
     FILE *fp;
     char fn[] = "twoEllipseImg";
-    float img[NY][NX];
+    char img[NY][NX];
 	  float att_tis_pix;
 	  float att_fac;
 	  float den;

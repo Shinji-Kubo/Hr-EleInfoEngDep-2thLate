@@ -8,7 +8,7 @@ int main(void)
 	int i, j, a, b, c, d;
 	FILE *fp;
 	char fn[] = "squareImg";
-	float img[NY][NX];
+	char img[NY][NX];
 	float att_tis_pix;
 	float att_fac;
 	float den;
