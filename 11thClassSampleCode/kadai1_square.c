@@ -8,7 +8,8 @@ int main(void)
 	int i, j, a, b, c, d;
 	FILE *fp;
 	char fn[] = "squareImg";
-	char img[NY][NX];
+	float img[NY][NX];
+	float proj_att[NX];
 	float att_tis_pix;
 	float att_fac;
 	float den;
@@ -44,6 +45,14 @@ int main(void)
 		}
 	}
 
+	for (i = 0; i < NX; i++)
+	{
+		for (j = 0; j < NY; j++)
+		{
+			proj_att[i] += img[j][i];
+		}
+	}
+
 	fp = fopen(fn, "wb");
 	if (fp == NULL)
 	{
@@ -51,10 +60,7 @@ int main(void)
 		exit(1);
 	}
 
-	for (i = 0; i < NY; i++)
-	{
-		fwrite(img[i], NX, sizeof(float), fp);
-	}
+	fwrite(proj_att, NX, sizeof(float), fp);
 
 	fclose(fp);
 

@@ -11,19 +11,19 @@ int main(void)
     FILE *fp;
     char fn[] = "kadai2Img";
     char img[NY][NX];
-    float left, right, size, z;
+    float left, right, middle, size, z;
     float trunkBtm, trunkTop, lungBtm, lungTop, liverBtm, liverTop, spineBtm, spineTop, heartBtm, heartTop;
 
-    trunkBtm = (16 - (32 / 2));
-    trunkTop = (16 + (32 / 2));
-    lungBtm = (16 - (30 / 2));
-    lungTop = (16 + (30 / 2));
-    liverBtm = (16 + 13 - (6 / 2));
-    liverTop = (16 + 13 + (6 / 2));
-    spineBtm = (16 - (32 / 2));
-    spineTop = (16 + (32 / 2));
-    heartBtm = (16 + 5 - (10 / 2));
-    heartTop = (16 + 5 + (10 / 2));
+    trunkBtm = 16 - (32 / 2);
+    trunkTop = 16 + (32 / 2);
+    lungBtm = 16 - (30 / 2);
+    lungTop = 16 + (30 / 2);
+    liverBtm = 16 + 13 - (6 / 2);
+    liverTop = 16 + 13 + (6 / 2);
+    spineBtm = 16 - (32 / 2);
+    spineTop = 16 + (32 / 2);
+    heartBtm = 16 + 5 - (10 / 2);
+    heartTop = 16 + 5 + (10 / 2);
 
     size = 0.25;
 
@@ -145,6 +145,21 @@ int main(void)
                     {
                         img[i][j] = 120;
                     }
+                }
+            }
+        }
+
+        // Tumor
+        for (i = 0; i < NY; i++)
+        {
+            for (j = 0; j < NX; j++)
+            {
+                left = pow(j - 92, 2);
+                middle = pow(i - 64, 2);
+                right = pow(k - 48, 2);
+                if (left + middle + right <= 36.0)
+                {
+                    img[i][j] = 240;
                 }
             }
         }
